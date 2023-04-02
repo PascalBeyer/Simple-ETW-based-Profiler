@@ -7,7 +7,7 @@ symbolize them using DbgHelp, and use them to build profile trees.
 These profile trees are then displayed using the GDI (essentially `FillRect` + `TextOut`).
 
 <p align='center'>
-<img src='image.png'>
+<img src='profiler.png'>
 </p>
 
 The left hand side shows the amount of samples raw and in percent, as well as the profiling tree.
