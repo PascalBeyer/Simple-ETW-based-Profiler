@@ -1037,43 +1037,45 @@ LRESULT ProfileWindowProc(HWND WindowHandle, UINT Message, WPARAM WParam, LPARAM
                     }
                 }
                 
-                // 
-                // We have drawn the tree, on the right side, draw which line numbers where hit 
-                // and how often.
-                // 
-                for(ULONG LineIndex = 0; LineIndex < SelectedNode->AmountOfFileAndLineNumbers; LineIndex++){
-                    PFILE_AND_LINE Line = &SelectedNode->FileAndLineNumbers[LineIndex];
-                    
-                    RECT OutlineRect = {
-                        .left   = ClientRect.left + (ClientRect.left + ClientRect.right)/2,
-                        .right  = ClientRect.right,
-                        .top    = ClientRect.top + LineIndex * 16,
-                        .bottom = ClientRect.top + (LineIndex + 1) * 16,
-                    };
-                    
-                    char buffer[0x100];
-                    {
-                        // 
-                        // Draw the amount of samples:
-                        // 
-                        int length = snprintf(buffer, sizeof(buffer), "%8d", Line->Samples);
-                        TextOutA(BackbufferDeviceHandle, OutlineRect.left, OutlineRect.top, buffer, length);
+                if(SelectedNode){
+                    // 
+                    // We have drawn the tree, on the right side, draw which line numbers where hit 
+                    // and how often.
+                    // 
+                    for(ULONG LineIndex = 0; LineIndex < SelectedNode->AmountOfFileAndLineNumbers; LineIndex++){
+                        PFILE_AND_LINE Line = &SelectedNode->FileAndLineNumbers[LineIndex];
                         
-                        OutlineRect.left += 60;
-                    }
-                    
-                    {
-                        // 
-                        // Draw the percent of samples:
-                        // 
-                        int length = snprintf(buffer, sizeof(buffer), "%2.2f", (double)Line->Samples/(double)SelectedNode->Samples * 100.0);
-                        TextOutA(BackbufferDeviceHandle, OutlineRect.left, OutlineRect.top, buffer, length);
+                        RECT OutlineRect = {
+                            .left   = ClientRect.left + (ClientRect.left + ClientRect.right)/2,
+                            .right  = ClientRect.right,
+                            .top    = ClientRect.top + LineIndex * 16,
+                            .bottom = ClientRect.top + (LineIndex + 1) * 16,
+                        };
                         
-                        OutlineRect.left += 60;
+                        char buffer[0x100];
+                        {
+                            // 
+                            // Draw the amount of samples:
+                            // 
+                            int length = snprintf(buffer, sizeof(buffer), "%8d", Line->Samples);
+                            TextOutA(BackbufferDeviceHandle, OutlineRect.left, OutlineRect.top, buffer, length);
+                            
+                            OutlineRect.left += 60;
+                        }
+                        
+                        {
+                            // 
+                            // Draw the percent of samples:
+                            // 
+                            int length = snprintf(buffer, sizeof(buffer), "%2.2f", (double)Line->Samples/(double)SelectedNode->Samples * 100.0);
+                            TextOutA(BackbufferDeviceHandle, OutlineRect.left, OutlineRect.top, buffer, length);
+                            
+                            OutlineRect.left += 60;
+                        }
+                        
+                        int length = snprintf(buffer, sizeof(buffer), "%s(%d)", Line->FileName, Line->LineNumber);
+                        TextOutA(BackbufferDeviceHandle, OutlineRect.left, OutlineRect.top, buffer, length);
                     }
-                    
-                    int length = snprintf(buffer, sizeof(buffer), "%s(%d)", Line->FileName, Line->LineNumber);
-                    TextOutA(BackbufferDeviceHandle, OutlineRect.left, OutlineRect.top, buffer, length);
                 }
             }
             
