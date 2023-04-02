@@ -1072,7 +1072,7 @@ LRESULT ProfileWindowProc(HWND WindowHandle, UINT Message, WPARAM WParam, LPARAM
                         OutlineRect.left += 60;
                     }
                     
-                    int length = snprintf(buffer, sizeof(buffer), "%s(%d)", Line->FileName, Line->Samples);
+                    int length = snprintf(buffer, sizeof(buffer), "%s(%d)", Line->FileName, Line->LineNumber);
                     TextOutA(BackbufferDeviceHandle, OutlineRect.left, OutlineRect.top, buffer, length);
                 }
             }
