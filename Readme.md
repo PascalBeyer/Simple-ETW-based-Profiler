@@ -10,6 +10,7 @@ These profile trees are then displayed using the GDI (essentially `FillRect` + `
    <img src='profile.png'>
 </p>
 
+At the top is a timeline, which lets you select the specific part of the profile you are interested in.
 The left hand side shows the amount of samples raw and in percent, as well as the profiling tree.
 The right hand side shows the lines hit for the selected function. 
 There are four trees generated:
@@ -27,8 +28,8 @@ There are four trees generated:
 These might seem somewhat cryptic from their description, but they make sense when you try them.
 
 The code tries to be as _flat_ as possible; not a lot of utility functions, no wrappers, etc.
-The only "non-required" complication is the use of a background thread to generate the 
-profile trees.
+The only "non-required" complication is the use of a background threads to generate the 
+profile trees and the timeline.
 
 
 # Usage
@@ -52,9 +53,6 @@ it requires administrator privileges.
 The profiler only samples events from the process it initially creates and does not 
 sample any children. This also means the profiler does not work with wrapper batch scripts.
 
-The profiler is dumb about pretty much everything and DbgHelp is not really a fast API. 
-Therefore, the profiler is not the fastest at generating the profiling trees.
-
 # Build 
 
 To build simply use `cl` from a [x64 Native Tools Command Prompt](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line), e.g:
@@ -67,11 +65,5 @@ The command to accomplish this is:
 ```
 cl /O2 profiler.c /link /MANIFESTUAC:level='requireAdministrator' /MANIFEST:EMBED
 ```
-
-
-
-
-
-
 
 
