@@ -7,7 +7,7 @@ symbolize them using DbgHelp, and use them to build profile trees.
 These profile trees are then displayed using the GDI (essentially `FillRect` + `TextOut`).
 
 <p align="center">
-   <img src='profile.png'>
+   <img src='profiler.png'>
 </p>
 
 At the top is a timeline, which lets you select the specific part of the profile you are interested in.
